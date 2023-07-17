@@ -30,7 +30,6 @@ jobs:
 
       - name: Update
         run: |
-          git switch ${{ env.BRANCH_NAME }}
           chmod -R 700 lib
           lib/make.sh > .message.md
           git add .tun-doc/*
