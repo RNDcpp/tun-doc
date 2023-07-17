@@ -30,10 +30,9 @@ jobs:
 
       - name: Update
         run: |
+          git switch ${{ env.BRANCH_NAME }}
           chmod -R 700 lib
           lib/make.sh > .message.md
           git add .tun-doc/*
           git commit -m 'update tundoc'
           gh pr create --fill -B ${{ env.BASE_BRANCH }} --body-file .message.md
-        with:
-          branch: ${{ env.BRANCH_NAME }}
