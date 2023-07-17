@@ -36,4 +36,4 @@ jobs:
           git config --local user.name "github-actions[bot]"
           git add .tun-doc/*
           git commit -m 'update tundoc'
-          gh pr create -B "${{env.BASE_BRANCH}}" --body-file "message.md"
+          gh pr create -B "${{env.BASE_BRANCH}}" --title "積ん読/${env.BRANCH_NAME}" --body-file "message.md"
