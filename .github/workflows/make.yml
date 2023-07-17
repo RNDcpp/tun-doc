@@ -24,7 +24,7 @@ jobs:
           echo "BRANCH_NAME=tundoc_${current_datetime}" >> $GITHUB_ENV
 
       - name: Create New Branch
-        run:
+        run: |
           git switch -c ${{ env.BRANCH_NAME }}
           git push -u origin ${{ env.BRANCH_NAME }}
 
