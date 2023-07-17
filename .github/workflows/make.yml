@@ -20,7 +20,7 @@ jobs:
         env:
           TZ: 'Asia/Tokyo'
         run: |
-          current_datetime=$( data +'%Y%m%d%H%M%S' )
+          current_datetime=$( date +'%Y%m%d%H%M%S' )
           echo "BRANCH_NAME=tundoc_${current_datetime}" >> $GITHUB_ENV
 
       - name: Create New Branch
