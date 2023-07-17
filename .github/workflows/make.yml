@@ -1,0 +1,39 @@
+name: Make tun-doc Pull Request
+
+on: [workflow_dispatch]
+
+env:
+  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+permissions:
+  contents: read
+  pull-requests: write
+  
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Set Branch Name
+        env:
+          TZ: 'Asia/Tokyo'
+        run: |
+          current_datetime=$( data +'%Y%m%d%H%M%S' )
+          echo "BRANCH_NAME=tundoc_${current_datetime}" >> $GITHUB_ENV
+
+      - name: Create New Branch
+        run:
+          git switch -c ${{ env.BRANCH_NAME }}
+          git push -u origin ${{ env.BRANCH_NAME }}
+
+      - name: Update
+        run: |
+          chmod -R 700 lib
+          lib/make.sh > .message.md
+          git add .tun-doc/*
+          git commit -m 'update tundoc'
+          gh pr create --fill -B ${{ env.BASE_BRANCH }} --body-file .message.md
+        with:
+          branch: ${{ env.BRANCH_NAME }}
